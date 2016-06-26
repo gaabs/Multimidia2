@@ -61,7 +61,8 @@ public class Health : MonoBehaviour {
 					// do nothing, death must be handled in another way elsewhere
 					break;
 				}
-				Destroy(gameObject);
+
+				//Destroy(gameObject);
 			}
 		}
 	}

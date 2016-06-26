@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Image = UnityEngine.UI.Image;
 
 public class EnemyBehavior : MonoBehaviour {
 	public float maxHealth;
@@ -20,13 +21,21 @@ public class EnemyBehavior : MonoBehaviour {
 	public float minDist = 1f;
 	public Transform target;
 
+	float maxScale; 
+
+
 	// Use this for initialization
 	void Start () {
         count = 0;
         controle = 0;
         animator = GetComponent<Animator>();
 		curHealthBar = curHealth;
-        healthbar = GameObject.Find("life");
+		healthbar = (gameObject.transform.FindChild ("HealthBar").FindChild("life")).gameObject;
+
+		if (target == null) {
+			target = GameObject.FindWithTag ("Player").transform;
+		}
+
 		//player = GameObject.Find ("Player");
 	}
 	
@@ -37,14 +46,10 @@ public class EnemyBehavior : MonoBehaviour {
         if (curHealth != curHealthBar) {
             float x = ((curHealthBar - curHealth) * 0.01f);
             curHealthBar = curHealth;
-            if(healthbar.transform.localScale.x > x)
-            {
-                healthbar.transform.localScale -= new Vector3(x,0,0);
-            }
-            else
-            {
-                healthbar.transform.localScale = new Vector3(0, 0, 0);
-            }
+
+			Vector3 temp = healthbar.transform.localScale;
+			temp.x = curHealth / maxHealth;
+			healthbar.transform.localScale = temp;
         }
         AnimatorStateInfo asi = animator.GetCurrentAnimatorStateInfo(0);
         count = Mathf.Round(asi.normalizedTime * 100f)/100f;
@@ -62,7 +67,7 @@ public class EnemyBehavior : MonoBehaviour {
             Destroy(this.gameObject);
         }
 
-        else if (asi.IsName("walk"))
+        else if (asi.IsName("walk") && target)
         {
 			// face the target
 			transform.LookAt(target);
