@@ -12,6 +12,7 @@ public class player : MonoBehaviour
     private int currentPrefabIndex;
 
 
+	Health health;
     public float playerHealth;
     public float playerHealthBar;
     private float sensitivityX = 1.1F;
@@ -29,8 +30,9 @@ public class player : MonoBehaviour
     void Start()
     {
         originalRotation = transform.localRotation;
-        playerHealth = 100f;
-        playerHealthBar = 100f;
+		health = gameObject.GetComponent<Health> ();
+		playerHealth = health.healthPoints;
+		playerHealthBar = health.healthPoints;
         Input.gyro.enabled = true;
         Input.gyro.updateInterval = 0.02f;
     }
@@ -39,6 +41,7 @@ public class player : MonoBehaviour
     void Update()
     {
         GameObject player = GameObject.Find("Player_life");
+		playerHealth = Mathf.Max (0, health.healthPoints);
         if (playerHealth>=0)
         {
             float x = ((playerHealthBar - playerHealth) * 0.01f);
@@ -52,7 +55,7 @@ public class player : MonoBehaviour
                 player.transform.localScale = new Vector3(0, 0, 0);
             }
         }
-        print(playerHealth);
+        //print(playerHealth);
     }
 
     public void damage(float dmg) {

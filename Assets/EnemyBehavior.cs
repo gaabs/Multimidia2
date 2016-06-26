@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class skelleton : MonoBehaviour {
+public class EnemyBehavior : MonoBehaviour {
 	public float maxHealth;
     public float curHealth;
     private float curHealthBar;
@@ -11,7 +11,7 @@ public class skelleton : MonoBehaviour {
     private GameObject healthbar;
     Animator animator;
     //player player;
-	GameObject player;
+	//GameObject player;
 
 	public GameObject projectile;
 	public float power = 10.0f;
@@ -25,11 +25,9 @@ public class skelleton : MonoBehaviour {
         count = 0;
         controle = 0;
         animator = GetComponent<Animator>();
-		maxHealth = 100f;
-		curHealth = 100f;
-        curHealthBar = 100f;
+		curHealthBar = curHealth;
         healthbar = GameObject.Find("life");
-		player = GameObject.Find ("Player");
+		//player = GameObject.Find ("Player");
 	}
 	
 	// Update is called once per frame
@@ -50,12 +48,12 @@ public class skelleton : MonoBehaviour {
         }
         AnimatorStateInfo asi = animator.GetCurrentAnimatorStateInfo(0);
         count = Mathf.Round(asi.normalizedTime * 100f)/100f;
-        if (asi.IsName("Attack") && controle==1&&count>=0.8) {
+        if (asi.IsName("attack") && controle==1&&count>=0.8) {
             attack(atk);
             controle--;
         }
 
-        else if (asi.IsName("iddle") && controle == 0) {
+        else if (asi.IsName("idle") && controle == 0) {
             controle++;
         }
 
@@ -64,7 +62,7 @@ public class skelleton : MonoBehaviour {
             Destroy(this.gameObject);
         }
 
-        else if (asi.IsName("walkFront"))
+        else if (asi.IsName("walk"))
         {
 			// face the target
 			transform.LookAt(target);
@@ -76,7 +74,7 @@ public class skelleton : MonoBehaviour {
 			if(distance > minDist)	
 				transform.position += transform.forward * speed * Time.deltaTime;
 			else 
-				animator.Play("iddle");
+				animator.Play("idle");
         }
 
     }
@@ -121,6 +119,10 @@ public class skelleton : MonoBehaviour {
 
 		// Instantiante projectile at the camera + 1 meter forward with camera rotation
 		GameObject newProjectile = Instantiate(projectile, transform.position + transform.forward, transform.rotation) as GameObject;
+		newProjectile.AddComponent<Damage> ();
+		Damage damage = newProjectile.GetComponent<Damage> ();
+		damage.damageAmount = atk;
+
 
 		// if the projectile does not have a rigidbody component, add one
 		if (!newProjectile.GetComponent<Rigidbody>()) 
@@ -134,10 +136,10 @@ public class skelleton : MonoBehaviour {
 
     }
 
-    public void decreasingHealth() {
+	public void decreasingHealth(float damage) {
          if (curHealth > 0)
         {
-           curHealth -= 20f;
+			curHealth -= damage;
 
 			if (curHealth < 0)
 				curHealth = 0;
@@ -150,14 +152,27 @@ public class skelleton : MonoBehaviour {
         else
         {
             animator.Play("hit", 0);
+			//animator.Play("walkFront", 0);
         }
 
     }
 
     void OnCollisionEnter(Collision col) {
+		print ("Skeleton health: " + curHealth);
+		/*
+		if (col.gameObject is Damager) {
+			float damage = (Damager)col.gameObject.damage;
+			Destroy (col.gameObject);
+			decreasingHealth (damage);
+		}
+		*/
 
-        Destroy(col.gameObject);
-        decreasingHealth();
+		Damage damager = col.gameObject.GetComponent<Damage> ();
+		if (damager) {
+			float damage = damager.damageAmount;
+			Destroy (col.gameObject);
+			decreasingHealth (damage);
+		}
     }
 
 
