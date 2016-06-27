@@ -55,6 +55,11 @@ public class player : MonoBehaviour
                 player.transform.localScale = new Vector3(0, 0, 0);
             }
         }
+
+
+		if (Input.GetKeyDown(KeyCode.Alpha1)) {
+			BeginEffect(num);
+		}
         //print(playerHealth);
     }
 
