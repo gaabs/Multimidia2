@@ -56,8 +56,9 @@ public class EnemyBehavior : MonoBehaviour {
         }
         AnimatorStateInfo asi = animator.GetCurrentAnimatorStateInfo(0);
         count = Mathf.Round(asi.normalizedTime * 100f)/100f;
+        transform.LookAt(target);
 
-        if (caiu()) {
+        if (transform.position.y < 0.4f) {
             animator.Play("Rise");
         }
 
@@ -98,11 +99,6 @@ public class EnemyBehavior : MonoBehaviour {
                 animator.Play("idle");
         }
 
-    }
-
-    bool caiu() {
-        //    return GetComponentInChildren<"Bip01_Spine">().transform.y==0;
-        return false;
     }
 
     public void walkFront()
