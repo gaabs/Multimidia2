@@ -10,9 +10,8 @@ public class player : MonoBehaviour
     private GameObject currentPrefabObject;
     private DigitalRuby.PyroParticles.FireBaseScript currentPrefabScript;
     private int currentPrefabIndex;
-
-
-	Health health;
+    private float savedTime;
+    Health health;
     public float playerHealth;
     public float playerHealthBar;
     private float sensitivityX = 1.1F;
@@ -25,11 +24,10 @@ public class player : MonoBehaviour
     private float rotationY = 0F;
     private int num = 0;
     private Vector3 velocity;
-    private Quaternion originalRotation;
     // Use this for initialization
     void Start()
     {
-        originalRotation = transform.localRotation;
+        savedTime = Time.time;
 		health = gameObject.GetComponentInParent<Health> ();
 		playerHealth = health.healthPoints;
 		playerHealthBar = health.healthPoints;
@@ -56,10 +54,21 @@ public class player : MonoBehaviour
             }
         }
 
+        GameObject bar = GameObject.Find("Player_FireBallBar");
+        if (bar.transform.localScale.x < 1)
+        {
+            bar.transform.localScale += new Vector3(0.005f, 0, 0);
+        }
 
-		if (Input.GetKeyDown(KeyCode.Alpha1)) {
-			BeginEffect(num);
-		}
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+           
+            if(bar.transform.localScale.x>=1)
+            {
+                BeginEffect(num);
+                bar.transform.localScale -= new Vector3(1,0,0);
+                savedTime = Time.time;
+             }
+        }
         //print(playerHealth);
     }
 
@@ -81,14 +90,18 @@ public class player : MonoBehaviour
 
     void OnGUI()
     {
-		//if (Input.touchCount>0 || Input.GetMouseButton(0))
+
+
+
+        /*
+        Input.touchCount>0 || Input.GetMouseButton(0))
 		if (GUI.Button(new Rect(100, 110, 100, 90), "ataque"))		
         {
             BeginEffect(num);
  //           GameObject skeleton = GameObject.Find("skeleton");
  //           skeleton.SendMessage("decreasingHealth");
-
-        }
+ 
+        }*/
         if (playerHealth <= 0)
         {
             GUIStyle style = new GUIStyle();
