@@ -57,7 +57,7 @@ public class player : MonoBehaviour
         GameObject bar = GameObject.Find("Player_FireBallBar");
         if (bar.transform.localScale.x < 1)
         {
-            bar.transform.localScale += new Vector3(0.005f, 0, 0);
+            bar.transform.localScale += new Vector3(0.01f, 0, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
@@ -134,7 +134,7 @@ public class player : MonoBehaviour
             {
                 // set the start point near the player
                 rotation = transform.rotation;
-				pos = transform.position + forward*2 + right + up;	
+				pos = transform.position + forward + up;	
               //  pos = transform.position + forward + right + up;
             }
             else
