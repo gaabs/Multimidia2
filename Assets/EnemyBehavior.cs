@@ -56,37 +56,53 @@ public class EnemyBehavior : MonoBehaviour {
         }
         AnimatorStateInfo asi = animator.GetCurrentAnimatorStateInfo(0);
         count = Mathf.Round(asi.normalizedTime * 100f)/100f;
-        if (asi.IsName("attack") && controle==1&&count>=0.8) {
+
+        if (caiu()) {
+            animator.Play("Rise");
+        }
+
+        else if (asi.IsName("attack") && controle == 1 && count >= 0.8) {
             attack(atk);
             controle--;
+            //get the distance between the chaser and the target
+            float distance = Vector3.Distance(transform.position, target.position);
+
+            //so long as the chaser is farther away than the minimum distance, move towards it at rate speed.
+            if (distance > minDist) animator.Play("walk");
+
         }
 
         else if (asi.IsName("idle") && controle == 0) {
             controle++;
         }
 
-		else if ((asi.IsName("death") && !animator.IsInTransition(0) && count>=1 && controle < 2))
+        else if ((asi.IsName("death") && !animator.IsInTransition(0) && count >= 1 && controle < 2))
         {
-			GameManager.gm.targetHit (1, 0);
-			controle = 2;
+            GameManager.gm.targetHit(1, 0);
+            controle = 2;
             Destroy(this.gameObject);
         }
 
         else if (asi.IsName("walk") && target)
         {
-			// face the target
-			transform.LookAt(target);
+            // face the target
+            transform.LookAt(target);
 
-			//get the distance between the chaser and the target
-			float distance = Vector3.Distance(transform.position,target.position);
+            //get the distance between the chaser and the target
+            float distance = Vector3.Distance(transform.position, target.position);
 
-			//so long as the chaser is farther away than the minimum distance, move towards it at rate speed.
-			if(distance > minDist)	
-				transform.position += transform.forward * speed * Time.deltaTime;
-			else 
-				animator.Play("idle");
+            //so long as the chaser is farther away than the minimum distance, move towards it at rate speed.
+            if (distance > minDist)
+                transform.position += transform.forward * speed * Time.deltaTime;
+            else
+                animator.Play("idle");
         }
 
+    }
+
+    bool caiu() {
+        //    return GetComponentInChildren<"Bip01_Spine">().transform.y==0;
+        return false;
     }
 
     public void walkFront()
