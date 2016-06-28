@@ -95,7 +95,7 @@ namespace DigitalRuby.PyroParticles
 
                 transform.localRotation = originalRotation * xQuaternion * yQuaternion;
             }
-/*            else if (axes == RotationAxes.MouseX)
+            else if (axes == RotationAxes.MouseX)
             {
                 rotationX += Input.GetAxis("Mouse X") * sensitivityX;
                 rotationX = ClampAngle(rotationX, minimumX, maximumX);
@@ -110,7 +110,7 @@ namespace DigitalRuby.PyroParticles
 
                 Quaternion yQuaternion = Quaternion.AngleAxis(-rotationY, Vector3.right);
                 transform.localRotation = originalRotation * yQuaternion;
-            }*/
+            }
         }
 
         private void UpdateEffect()

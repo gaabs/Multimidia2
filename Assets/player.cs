@@ -30,7 +30,7 @@ public class player : MonoBehaviour
     void Start()
     {
         originalRotation = transform.localRotation;
-		health = gameObject.GetComponent<Health> ();
+		health = gameObject.GetComponentInParent<Health> ();
 		playerHealth = health.healthPoints;
 		playerHealthBar = health.healthPoints;
         Input.gyro.enabled = true;
@@ -112,8 +112,7 @@ public class player : MonoBehaviour
         Vector3 up = transform.up;
         Quaternion rotation = Quaternion.identity;
         currentPrefabObject = GameObject.Instantiate(Prefabs[i]);
-        currentPrefabScript = currentPrefabObject.GetComponent<DigitalRuby.PyroParticles.FireConstantBaseScript>();
-
+		currentPrefabScript = currentPrefabObject.GetComponent<DigitalRuby.PyroParticles.FireConstantBaseScript>();
         if (currentPrefabScript == null)
         {
             // temporary effect, like a fireball
@@ -122,7 +121,8 @@ public class player : MonoBehaviour
             {
                 // set the start point near the player
                 rotation = transform.rotation;
-                pos = transform.position + forward + right + up;
+				pos = transform.position + forward*2 + right + up;	
+              //  pos = transform.position + forward + right + up;
             }
             else
             {
@@ -137,13 +137,15 @@ public class player : MonoBehaviour
             rotation = transform.rotation;
             pos.y = 0.0f;
         }
+        
 
-        DigitalRuby.PyroParticles.FireProjectileScript projectileScript = currentPrefabObject.GetComponentInChildren<DigitalRuby.PyroParticles.FireProjectileScript>();
+		DigitalRuby.PyroParticles.FireProjectileScript projectileScript = currentPrefabObject.GetComponentInChildren<DigitalRuby.PyroParticles.FireProjectileScript>();
         if (projectileScript != null)
         {
             // make sure we don't collide with other friendly layers
             projectileScript.ProjectileCollisionLayers &= (~UnityEngine.LayerMask.NameToLayer("FriendlyLayer"));
         }
+
 
         currentPrefabObject.transform.position = pos;
         currentPrefabObject.transform.rotation = rotation;
