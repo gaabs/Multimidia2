@@ -64,7 +64,7 @@ public class Damage : MonoBehaviour {
 		}
 		Health health = collision.gameObject.GetComponent<Health> ();
 		if (health)
-			print ("health: " + health.healthPoints);
+			print (collision.gameObject.name + " health: " + health.healthPoints);
 	}
 
 	void OnCollisionExit(Collision collisionInfo) {

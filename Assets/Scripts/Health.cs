@@ -40,7 +40,14 @@ public class Health : MonoBehaviour {
 	{
 		if (healthPoints <= 0) {				// if the object is 'dead'
 			numberOfLives--;					// decrement # of lives, update lives GUI
-			
+
+			print (gameObject.name + " morreu (tag = " + gameObject.tag);
+
+
+			if (gameObject.tag == "Enemy") {
+				//GameManager.gm.targetHit (1, 0);
+			}
+
 			if (explosionPrefab!=null) {
 				Instantiate (explosionPrefab, transform.position, Quaternion.identity);
 			}
@@ -62,9 +69,14 @@ public class Health : MonoBehaviour {
 					break;
 				}
 
-				//Destroy(gameObject);
+
+				Invoke ("SelfDestroy", 5.0f);
 			}
 		}
+	}
+
+	void SelfDestroy(){
+		Destroy (gameObject);
 	}
 	
 	public void ApplyDamage(float amount)

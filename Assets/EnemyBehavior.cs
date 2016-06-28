@@ -3,6 +3,7 @@ using System.Collections;
 using Image = UnityEngine.UI.Image;
 
 public class EnemyBehavior : MonoBehaviour {
+	Health health;
 	public float maxHealth;
     public float curHealth;
     private float curHealthBar;
@@ -29,6 +30,8 @@ public class EnemyBehavior : MonoBehaviour {
         count = 0;
         controle = 0;
         animator = GetComponent<Animator>();
+		//health = new Health ();
+		//health.healthPoints = curHealth;
 		curHealthBar = curHealth;
 		healthbar = (gameObject.transform.FindChild ("HealthBar").FindChild("life")).gameObject;
 
@@ -62,8 +65,10 @@ public class EnemyBehavior : MonoBehaviour {
             controle++;
         }
 
-        else if ((asi.IsName("death") && !animator.IsInTransition(0) && count>=1))
+		else if ((asi.IsName("death") && !animator.IsInTransition(0) && count>=1 && controle < 2))
         {
+			GameManager.gm.targetHit (1, 0);
+			controle = 2;
             Destroy(this.gameObject);
         }
 
