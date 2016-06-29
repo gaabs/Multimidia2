@@ -185,12 +185,12 @@ public class MiniBossBehavior : MonoBehaviour {
         }
         if (curHealth <= 0)
         {
-            animator.Play("Death", 0);
+            animator.Play("death", 0);
 
         }
         else
         {
-            animator.Play("Hit", 0);
+            animator.Play("hit", 0);
 			//animator.Play("walkFront", 0);
         }
 
