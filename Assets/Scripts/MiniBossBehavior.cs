@@ -90,7 +90,7 @@ public class MiniBossBehavior : MonoBehaviour {
 
         }
 
-        else if (asi.IsName("idle") && controle == 0)
+        else if (asi.IsName("idle") && !animator.IsInTransition(0) && controle == 0)
         {
             controle++;
         }
