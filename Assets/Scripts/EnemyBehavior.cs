@@ -62,11 +62,7 @@ public class EnemyBehavior : MonoBehaviour {
         count = Mathf.Round(asi.normalizedTime * 100f)/100f;
         transform.LookAt(target);
 
-        if (transform.position.y < 0.4f) {
-            animator.Play("Rise");
-        }
-
-        else if (asi.IsName("attack") && controle == 1 && count >= 0.8) {
+       if (asi.IsName("attack") && controle == 1 && count >= 0.8) {
             attack(atk);
             controle--;
             //get the distance between the chaser and the target
