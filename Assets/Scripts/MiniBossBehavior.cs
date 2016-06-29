@@ -78,7 +78,7 @@ public class MiniBossBehavior : MonoBehaviour {
         count = Mathf.Round(asi.normalizedTime * 100f) / 100f;
         transform.LookAt(target);
 
-        if (asi.IsName("attack") && controle == 1 && count >= 0.8)
+        if (asi.IsName("attack") && controle == 1 && count >= 0.4)
         {
             attack(atk);
             controle--;
