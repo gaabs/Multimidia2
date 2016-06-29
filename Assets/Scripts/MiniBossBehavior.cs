@@ -75,32 +75,34 @@ public class MiniBossBehavior : MonoBehaviour {
             }
         }
         AnimatorStateInfo asi = animator.GetCurrentAnimatorStateInfo(0);
-        count = Mathf.Round(asi.normalizedTime * 100f)/100f;
+        count = Mathf.Round(asi.normalizedTime * 100f) / 100f;
         transform.LookAt(target);
 
-        if (asi.IsName("Attack") && controle == 1 && count >= 0.8) {
+        if (asi.IsName("attack") && controle == 1 && count >= 0.8)
+        {
             attack(atk);
             controle--;
             //get the distance between the chaser and the target
             float distance = Vector3.Distance(transform.position, target.position);
 
             //so long as the chaser is farther away than the minimum distance, move towards it at rate speed.
-            if (distance > minDist) animator.Play("Run");
+            if (distance > minDist) animator.Play("walk");
 
         }
 
-        else if (asi.IsName("Idle") && controle == 0) {
+        else if (asi.IsName("idle") && controle == 0)
+        {
             controle++;
         }
 
-        else if ((asi.IsName("Death") && !animator.IsInTransition(0) && count >= 1 && controle < 2))
+        else if ((asi.IsName("death") && !animator.IsInTransition(0) && count >= 1 && controle < 2))
         {
             GameManager.gm.targetHit(1, 0);
             controle = 2;
             Destroy(this.gameObject);
         }
 
-        else if (asi.IsName("Run") && target)
+        else if (asi.IsName("walk") && target)
         {
             // face the target
             transform.LookAt(target);
@@ -112,7 +114,7 @@ public class MiniBossBehavior : MonoBehaviour {
             if (distance > minDist)
                 transform.position += transform.forward * speed * Time.deltaTime;
             else
-                animator.Play("Idle");
+                animator.Play("idle");
         }
 
     }
