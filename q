@@ -1,0 +1,43 @@
+[33mcommit 0b209ea9c17261a089fd5808e8030fd6448c9fea[m
+Author: gaabs <gaabs@cin.ufpe.br>
+Date:   Tue Jun 28 14:35:23 2016 -0300
+
+    Added score and time
+
+[33mcommit cb75b6f7fc2aa02c8ba401c9a56225debb3acb7d[m
+Author: gaabs <gaabs@cin.ufpe.br>
+Date:   Tue Jun 28 13:24:32 2016 -0300
+
+    Fixed colisions
+
+[33mcommit 762240597960056d1466bbece32e333502054ee1[m
+Author: gaabs <gaabs@cin.ufpe.br>
+Date:   Sun Jun 26 23:51:17 2016 -0300
+
+    Added input for testing spell
+
+[33mcommit 4acbe449f57248f7aec3646ca234daa9665e05a7[m
+Author: gaabs <gaabs@cin.ufpe.br>
+Date:   Sun Jun 26 22:28:51 2016 -0300
+
+    Missing files
+
+[33mcommit 86240e7715ce18417b53e79a9394a10456980606[m
+Author: gaabs <gaabs@cin.ufpe.br>
+Date:   Sun Jun 26 20:23:27 2016 -0300
+
+    Small Changes on HealthBar
+
+[33mcommit f10dfe8aa32439ca31e71070ee09465e54b80148[m
+Author: gaabs <gaabs@cin.ufpe.br>
+Date:   Sun Jun 26 18:35:58 2016 -0300
+
+    Refactoring and bug fixes
+    Improvements on enemy modularization
+    Enemy being hit doesnt stop his movement
+
+[33mcommit 30a3f604d94aff9471273560e8d23ac0b14f5a72[m
+Author: gaabs <gaabs@cin.ufpe.br>
+Date:   Sun Jun 26 00:07:27 2016 -0300
+
+    first commit
