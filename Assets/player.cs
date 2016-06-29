@@ -60,6 +60,9 @@ public class player : MonoBehaviour
             bar.transform.localScale += new Vector3(0.01f, 0, 0);
         }
 
+		if (GameManager.gm.gameIsOver)
+			return;
+
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
            
             if(bar.transform.localScale.x>=1)
@@ -71,50 +74,13 @@ public class player : MonoBehaviour
         }
         //print(playerHealth);
     }
-
-    public void damage(float dmg) {
-        if (playerHealth > 0)
-        {
-            playerHealth -= dmg;
-            if (playerHealth < 0) playerHealth = 0;
-        }
-        
-    }
-
-    
+		    
 
     void FixedUpdate()
     {
         UpdateCameraLook();
     }
-
-    void OnGUI()
-    {
-
-
-
-        /*
-        Input.touchCount>0 || Input.GetMouseButton(0))
-		if (GUI.Button(new Rect(100, 110, 100, 90), "ataque"))		
-        {
-            BeginEffect(num);
- //           GameObject skeleton = GameObject.Find("skeleton");
- //           skeleton.SendMessage("decreasingHealth");
- 
-        }*/
-        if (playerHealth <= 0)
-        {
-            GUIStyle style = new GUIStyle();
-            style.fontSize = 50;
-            GUILayout.BeginArea(new Rect(Screen.width / 2, Screen.height / 2, 800, 300));
-            GUILayout.FlexibleSpace();
-            GUILayout.Label("GameOver", style);
-            GUILayout.FlexibleSpace();
-            GUILayout.EndArea();
-
-        }
-    }
-
+		
     private void BeginEffect(int i)
     {
         Vector3 pos;
@@ -134,7 +100,7 @@ public class player : MonoBehaviour
             {
                 // set the start point near the player
                 rotation = transform.rotation;
-				pos = transform.position + forward + up;	
+				pos = transform.position + forward;	
               //  pos = transform.position + forward + right + up;
             }
             else

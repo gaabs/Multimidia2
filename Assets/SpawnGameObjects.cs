@@ -21,6 +21,9 @@ public class SpawnGameObjects : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (GameManager.gm.gameIsOver)
+			return;
+		
 		if (Time.time - savedTime >= secondsBetweenSpawning) // is it time to spawn again?
 		{
 			MakeThingToSpawn();

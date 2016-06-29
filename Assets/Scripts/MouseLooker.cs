@@ -34,6 +34,12 @@ public class MouseLooker : MonoBehaviour {
 	}
 	
 	void Update() {
+
+		if(GameManager.gm.gameIsOver){
+			LockCursor (false);
+			return;
+		}
+
 		// rotate stuff based on the mouse
 		LookRotation ();
 

@@ -58,6 +58,8 @@ public class Health : MonoBehaviour {
 				healthPoints = respawnHealthPoints;	// give the player full health again
 			} else { // here is where you do stuff once ALL lives are gone)
 				isAlive = false;
+				GameManager.gm.EndGame ();
+
 				
 				switch(onLivesGone)
 				{
@@ -70,7 +72,7 @@ public class Health : MonoBehaviour {
 				}
 
 
-				Invoke ("SelfDestroy", 5.0f);
+				//Invoke ("SelfDestroy", 5.0f);
 			}
 		}
 	}
@@ -98,4 +100,5 @@ public class Health : MonoBehaviour {
 		respawnPosition = newRespawnPosition;
 		respawnRotation = newRespawnRotation;
 	}
+
 }

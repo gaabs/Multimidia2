@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	public bool canBeatLevel = false;
 	public int beatLevelScore=0;
 
-	public float startTime=5.0f;
+	public float startTime=0.0f;
 	
 	public Text mainScoreDisplay;
 	public Text mainTimerDisplay;
@@ -33,8 +33,13 @@ public class GameManager : MonoBehaviour {
 
 	private float currentTime;
 
+	public GameObject gameOverCanvas;
+
 	// setup the game
 	void Start () {
+
+		gameOverCanvas = GameObject.Find ("GameOverCanvas");
+		gameOverCanvas.SetActive (false);
 
 		// set the current time to the startTime specified
 		currentTime = startTime;
@@ -67,18 +72,18 @@ public class GameManager : MonoBehaviour {
 			} else if (currentTime < 0) { // check to see if timer has run out
 				EndGame ();
 			} else { // game playing state, so update the timer
-				currentTime -= Time.deltaTime;
+				currentTime += Time.deltaTime;
 				mainTimerDisplay.text = currentTime.ToString ("0.00");				
 			}
 		}
 	}
 
-	void EndGame() {
+	public void EndGame() {
 		// game is over
 		gameIsOver = true;
+		gameOverCanvas.SetActive (true);
+		print ("Entrou em endgame");
 
-		// repurpose the timer to display a message to the player
-		mainTimerDisplay.text = "GAME OVER";
 
 		// activate the gameOverScoreOutline gameObject, if it is set 
 		if (gameOverScoreOutline)
@@ -145,6 +150,10 @@ public class GameManager : MonoBehaviour {
 		// we are just loading the specified next level (scene)
 		Application.LoadLevel (nextLevelToLoad);
 	}
-	
+
+	public void LoadLevel(string scene){
+		Application.LoadLevel (scene);
+		print ("CLICOU");
+	}
 
 }

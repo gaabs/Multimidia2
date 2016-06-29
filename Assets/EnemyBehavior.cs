@@ -44,7 +44,11 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       
+		if (GameManager.gm.gameIsOver) {
+			animator.Play("idle");
+			animator.Stop ();
+			return;
+		}
        
         if (curHealth != curHealthBar) {
             float x = ((curHealthBar - curHealth) * 0.01f);
