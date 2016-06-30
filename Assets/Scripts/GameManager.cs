@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour {
 
 	// public variables
 	public int score=0;
-
+    public int controle =0;
 	public bool canBeatLevel = false;
 	public int beatLevelScore=0;
-
+    public GameObject[] bosses;
 	public float startTime=0.0f;
 	
 	public Text mainScoreDisplay;
@@ -66,6 +66,18 @@ public class GameManager : MonoBehaviour {
 
 	// this is the main game event loop
 	void Update () {
+        if (score % 11==0 && score!=0 && controle==0) {
+            controle++;
+            GameObject miniboss = GameObject.Instantiate(bosses[0]);
+            miniboss.transform.position = GameObject.Find("SkeletonSpawner").transform.position;
+            miniboss.transform.rotation = GameObject.Find("SkeletonSpawner").transform.rotation;
+            miniboss.transform.localScale = new Vector3(15, 15, 15);
+        }
+        else if (score % 17==0 && score != 0 && controle==1)
+        {
+            controle--;
+        }
+
 		if (!gameIsOver) {
 			if (canBeatLevel && (score >= beatLevelScore)) {  // check to see if beat game
 				BeatLevel ();
