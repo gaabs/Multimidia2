@@ -67,11 +67,21 @@ public class player : MonoBehaviour
            
             if(bar.transform.localScale.x>=1)
             {
-                BeginEffect(num);
+                BeginEffect(0);
                 bar.transform.localScale -= new Vector3(1,0,0);
                 savedTime = Time.time;
              }
         }
+
+		if (Input.GetKeyDown(KeyCode.Alpha2)) {
+
+			if(bar.transform.localScale.x>=1)
+			{
+				BeginEffect(1);
+				bar.transform.localScale -= new Vector3(1,0,0);
+				savedTime = Time.time;
+			}
+		}
         //print(playerHealth);
     }
 		    

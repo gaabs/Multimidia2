@@ -58,6 +58,8 @@ namespace DigitalRuby.PyroParticles
         [Tooltip("Array of explosion sounds. One will be chosen at random upon impact.")]
         public AudioClip[] ExplosionSounds;
 
+		public float damage;
+
         /// <summary>
         /// A delegate that can be assigned to listen for collision. Use this to apply damage for meteor impacts or other effects.
         /// </summary>
@@ -65,6 +67,8 @@ namespace DigitalRuby.PyroParticles
         public event MeteorSwarmCollisionDelegate CollisionDelegate;
 
         private float elapsedSecond = 1.0f;
+
+		private bool hasDamaged = false;
 
         private IEnumerator SpawnMeteor()
         {
@@ -139,7 +143,23 @@ namespace DigitalRuby.PyroParticles
             {
                 elapsedSecond = elapsedSecond - 1.0f;
                 SpawnMeteors();
+				hasDamaged = false;
             }
+
+			if (elapsedSecond >= 0.2f && !hasDamaged) {
+				GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+				print ("qtd inimigos encontrados: " + enemies.Length);
+				EnemyBehavior behavior;
+				foreach (GameObject enemy in enemies) {
+					behavior = enemy.GetComponent<EnemyBehavior> ();
+					if (behavior) {
+						behavior.decreasingHealth (damage);
+						print ("deu dano meteoro em " + enemy.name);
+					} else
+						print ("nao achou behavior em " + enemy.name);
+				}
+				hasDamaged = true;
+			}
         }
 
         private void PlayCollisionSound(GameObject obj)
