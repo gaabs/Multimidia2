@@ -68,7 +68,7 @@ public class player : MonoBehaviour
             if(bar.transform.localScale.x>=1)
             {
                 BeginEffect(num);
-              //  bar.transform.localScale -= new Vector3(1,0,0);
+                bar.transform.localScale -= new Vector3(1,0,0);
                 savedTime = Time.time;
              }
         }
