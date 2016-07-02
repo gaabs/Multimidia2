@@ -150,14 +150,31 @@ namespace DigitalRuby.PyroParticles
 				GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 				print ("qtd inimigos encontrados: " + enemies.Length);
 				EnemyBehavior behavior;
-				foreach (GameObject enemy in enemies) {
-					behavior = enemy.GetComponent<EnemyBehavior> ();
-					if (behavior) {
-						behavior.decreasingHealth (damage);
-						print ("deu dano meteoro em " + enemy.name);
-					} else
-						print ("nao achou behavior em " + enemy.name);
-				}
+                foreach (GameObject enemy in enemies)
+                {
+                    behavior = enemy.GetComponent<EnemyBehavior>();
+                    if (behavior)
+                    {
+                        behavior.decreasingHealth(damage);
+                        print("deu dano meteoro em " + enemy.name);
+                    }
+                    else if (enemy.GetComponent<MiniBossBehavior>())
+                    {
+                        MiniBossBehavior MiniBoss = enemy.GetComponent<MiniBossBehavior>();
+                        MiniBoss.decreasingHealth(damage);
+                        print("deu dano meteoro em " + enemy.name);
+                    }
+            /*     else if (enemy.GetComponent<BossBehavior>())
+                    {
+                        BossBehavior Boss = enemy.GetComponent<BossBehavior>();
+                        Boss.decreasingHealth(damage);
+                        print("deu dano meteoro em " + enemy.name);
+                    } */
+                    else
+                    {
+                        print("nao achou behavior em " + enemy.name);
+                    }
+                }
 				hasDamaged = true;
 			}
         }
