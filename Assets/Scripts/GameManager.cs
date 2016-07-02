@@ -8,8 +8,9 @@ public class GameManager : MonoBehaviour {
 	// make game manager public static so can access this from other scripts
 	public static GameManager gm;
 
-	// public variables
-	public int score=0;
+    // public variables
+    public int wave = 0;
+    public int score=0;
     public int controle =0;
 	public bool canBeatLevel = false;
 	public int beatLevelScore=0;
@@ -31,18 +32,20 @@ public class GameManager : MonoBehaviour {
 	public GameObject nextLevelButtons;
 	public string nextLevelToLoad;
 
-	private float currentTime;
+    private float currentTime;
+    private float savedTime=0f;
+    public int summoned;
 
-	public GameObject gameOverCanvas;
-
-	// setup the game
-	void Start () {
-
+    public GameObject gameOverCanvas;
+    public GameObject WaveCanvas;
+    // setup the game
+    void Start () {
+        summoned = GameObject.Find("SkeletonSpawner").GetComponent<SpawnGameObjects>().numSpawn*4;
 		gameOverCanvas = GameObject.Find ("GameOverCanvas");
 		gameOverCanvas.SetActive (false);
-
-		// set the current time to the startTime specified
-		currentTime = startTime;
+        WaveCanvas = GameObject.Find("Wave");
+        // set the current time to the startTime specified
+        currentTime = startTime;
 
 		// get a reference to the GameManager component for use by other scripts
 		if (gm == null) 
@@ -66,8 +69,13 @@ public class GameManager : MonoBehaviour {
 
 	// this is the main game event loop
 	void Update () {
+        if (score == 0 && currentTime>=2f)
+        {
+            WaveCanvas.SetActive(false);
+        }
         if (score % 11==0 && score!=0 && controle==0) {
             controle++;
+            summoned++;
             GameObject miniboss = GameObject.Instantiate(bosses[0]);
             miniboss.transform.position = GameObject.Find("SkeletonSpawner").transform.position;
             miniboss.transform.rotation = GameObject.Find("SkeletonSpawner").transform.rotation;
@@ -75,6 +83,8 @@ public class GameManager : MonoBehaviour {
         }
         else if (score % 17==0 && score != 0 && controle==1)
         {
+            //when the boss is ready remove comment so summoned can increase
+          //  summoned++;
             controle--;
         }
 
@@ -88,7 +98,26 @@ public class GameManager : MonoBehaviour {
 				mainTimerDisplay.text = currentTime.ToString ("0.00");				
 			}
 		}
-	}
+        if (score == summoned)
+        {
+            if (!WaveCanvas.activeSelf)
+            {
+               savedTime = currentTime;
+            }
+            WaveCanvas.SetActive(true);
+            GameObject.Find("WaveText").GetComponent<Text>().text = "Wave " + (wave + 1);
+            if (currentTime - savedTime >= 2f && WaveCanvas.activeSelf)
+            {
+                summoned += (summoned + 2);
+                WaveCanvas.SetActive(false);
+                wave++;
+            }
+
+        }
+
+        
+
+    }
 
 	public void EndGame() {
 		// game is over

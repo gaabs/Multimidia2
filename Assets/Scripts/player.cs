@@ -57,7 +57,7 @@ public class player : MonoBehaviour
         GameObject bar = GameObject.Find("Player_FireBallBar");
         if (bar.transform.localScale.x < 1)
         {
-            bar.transform.localScale += new Vector3(0.01f, 0, 0);
+            bar.transform.localScale += new Vector3(0.1f, 0, 0);
         }
 
 		if (GameManager.gm.gameIsOver)
