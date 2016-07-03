@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour {
 	public int beatLevelScore=0;
     public GameObject[] bosses;
 	public float startTime=0.0f;
-	
+    private int numsum;
 	public Text mainScoreDisplay;
 	public Text mainTimerDisplay;
 
@@ -40,7 +40,8 @@ public class GameManager : MonoBehaviour {
     public GameObject WaveCanvas;
     // setup the game
     void Start () {
-        summoned = GameObject.Find("SkeletonSpawner").GetComponent<SpawnGameObjects>().numSpawn*4;
+        numsum = GameObject.Find("SkeletonSpawner").GetComponent<SpawnGameObjects>().numSpawn;
+        summoned = numsum*4;
 		gameOverCanvas = GameObject.Find ("GameOverCanvas");
 		gameOverCanvas.SetActive (false);
         WaveCanvas = GameObject.Find("Wave");
@@ -109,7 +110,7 @@ public class GameManager : MonoBehaviour {
             GameObject.Find("WaveText").GetComponent<Text>().text = "Wave " + (wave + 1);
             if (currentTime - savedTime >= 2f && WaveCanvas.activeSelf)
             {
-                summoned += (summoned + 2);
+                summoned += (numsum + 2)*4;
                 WaveCanvas.SetActive(false);
                 wave++;
             }
