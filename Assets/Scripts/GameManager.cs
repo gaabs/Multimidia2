@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour {
             GameObject miniboss = GameObject.Instantiate(bosses[0]);
             miniboss.transform.position = GameObject.Find("SkeletonSpawner").transform.position;
             miniboss.transform.rotation = GameObject.Find("SkeletonSpawner").transform.rotation;
+            miniboss.transform.position+=new Vector3(-1,0,-1);
             miniboss.transform.localScale = new Vector3(15, 15, 15);
         }
         else if (score % 17==0 && score != 0 && controle==1)

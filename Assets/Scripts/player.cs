@@ -70,14 +70,30 @@ public class player : MonoBehaviour
         if (GameManager.gm.gameIsOver)
 			return;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-           
-            if(FireBallbar.transform.localScale.x>=1)
+        if (Input.GetKeyDown(KeyCode.Alpha1)||Input.GetButton("Fire1")) {
+
+            if (num == 0)
             {
-                BeginEffect(0);
-                FireBallbar.transform.localScale -= new Vector3(1,0,0);
-                savedTime = Time.time;
-             }
+                if (FireBallbar.transform.localScale.x >= 1)
+                {
+                    BeginEffect(0);
+                    FireBallbar.transform.localScale -= new Vector3(1, 0, 0);
+                    savedTime = Time.time;
+                }
+            }else if (num==1){
+                if (Meteorbar.transform.localScale.x >= 1)
+                {
+                    BeginEffect(1);
+                    Meteorbar.transform.localScale -= new Vector3(1, 0, 0);
+                    savedTime = Time.time;
+                }
+            }
+        }
+
+        if (Input.GetButton("Horizontal"))
+        {
+            if (num == 0) num++;
+            if (num == 1) num--;
         }
 
 		if (Input.GetKeyDown(KeyCode.Alpha2)) {

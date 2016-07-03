@@ -52,6 +52,7 @@ public class SpawnGameObjects : MonoBehaviour {
 	void MakeThingToSpawn()
 	{
 		// create a new gameObject
-		GameObject clone = Instantiate(spawnPrefab, transform.position, transform.rotation) as GameObject;        
+		GameObject clone = Instantiate(spawnPrefab, transform.position, transform.rotation) as GameObject;
+               
 	}
 }
