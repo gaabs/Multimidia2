@@ -54,31 +54,38 @@ public class player : MonoBehaviour
             }
         }
 
-        GameObject bar = GameObject.Find("Player_FireBallBar");
-        if (bar.transform.localScale.x < 1)
+        GameObject FireBallbar = GameObject.Find("Player_FireBallBar");
+        GameObject Meteorbar = GameObject.Find("Player_MeteorBar");
+
+        if (FireBallbar.transform.localScale.x < 1)
         {
-            bar.transform.localScale += new Vector3(0.1f, 0, 0);
+            FireBallbar.transform.localScale += new Vector3(0.1f, 0, 0);
         }
 
-		if (GameManager.gm.gameIsOver)
+        if (Meteorbar.transform.localScale.x < 1)
+        {
+            Meteorbar.transform.localScale += new Vector3(0.01f, 0, 0);
+        }
+
+        if (GameManager.gm.gameIsOver)
 			return;
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
            
-            if(bar.transform.localScale.x>=1)
+            if(FireBallbar.transform.localScale.x>=1)
             {
                 BeginEffect(0);
-                bar.transform.localScale -= new Vector3(1,0,0);
+                FireBallbar.transform.localScale -= new Vector3(1,0,0);
                 savedTime = Time.time;
              }
         }
 
 		if (Input.GetKeyDown(KeyCode.Alpha2)) {
 
-			if(bar.transform.localScale.x>=1)
+			if(Meteorbar.transform.localScale.x>=1)
 			{
 				BeginEffect(1);
-				bar.transform.localScale -= new Vector3(1,0,0);
+				Meteorbar.transform.localScale -= new Vector3(1,0,0);
 				savedTime = Time.time;
 			}
 		}
