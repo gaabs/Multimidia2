@@ -59,13 +59,24 @@ public class player : MonoBehaviour
 
         if (FireBallbar.transform.localScale.x < 1)
         {
-            FireBallbar.transform.localScale += new Vector3(0.1f, 0, 0);
-        }
+			float tempX = FireBallbar.transform.localScale.x;
+			tempX += 1f * Time.deltaTime;
+			if (tempX > 1)
+				tempX = 1;
+			tempX -= FireBallbar.transform.localScale.x;
+			FireBallbar.transform.localScale += new Vector3 (tempX, 0, 0);
+		} 
 
-        if (Meteorbar.transform.localScale.x < 1)
-        {
-            Meteorbar.transform.localScale += new Vector3(0.0002f, 0, 0);
-        }
+		if (Meteorbar.transform.localScale.x < 1)
+		{
+			float tempX = Meteorbar.transform.localScale.x;
+			tempX += 0.02f * Time.deltaTime;
+			if (tempX > 1)
+				tempX = 1;
+			tempX -= Meteorbar.transform.localScale.x;
+			Meteorbar.transform.localScale += new Vector3 (tempX, 0, 0);
+		} 
+			
 
         if (GameManager.gm.gameIsOver)
 			return;
