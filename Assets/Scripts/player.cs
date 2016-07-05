@@ -64,7 +64,7 @@ public class player : MonoBehaviour
 
         if (Meteorbar.transform.localScale.x < 1)
         {
-            Meteorbar.transform.localScale += new Vector3(0.01f, 0, 0);
+            Meteorbar.transform.localScale += new Vector3(0.0002f, 0, 0);
         }
 
         if (GameManager.gm.gameIsOver)
