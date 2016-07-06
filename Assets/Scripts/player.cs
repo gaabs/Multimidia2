@@ -78,8 +78,12 @@ public class player : MonoBehaviour
 		} 
 			
 
-        if (GameManager.gm.gameIsOver)
+		if (GameManager.gm.gameIsOver) {
+			if (Input.GetButton ("Fire1")) {
+				GameManager.gm.RestartGame ();
+			}
 			return;
+		}
 
         if (Input.GetKeyDown(KeyCode.Alpha1)||Input.GetButton("Fire1")) {
 
