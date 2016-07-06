@@ -80,6 +80,8 @@ public class MiniBossBehavior : MonoBehaviour {
 
         if (asi.IsName("attack") && controle == 1 && count >= 0.4)
         {
+			AudioSource audio = GetComponent<AudioSource>();
+			audio.Play();
             attack(atk);
             controle--;
             //get the distance between the chaser and the target
