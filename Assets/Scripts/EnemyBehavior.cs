@@ -63,6 +63,8 @@ public class EnemyBehavior : MonoBehaviour {
         transform.LookAt(target);
 
        if (asi.IsName("attack") && controle == 1 && count >= 0.8) {
+			AudioSource audio = GetComponent<AudioSource>();
+			audio.Play();
             attack(atk);
             controle--;
             //get the distance between the chaser and the target
