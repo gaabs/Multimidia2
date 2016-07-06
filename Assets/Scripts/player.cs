@@ -60,7 +60,7 @@ public class player : MonoBehaviour
         if (FireBallbar.transform.localScale.x < 1)
         {
 			float tempX = FireBallbar.transform.localScale.x;
-			tempX += 1f * Time.deltaTime;
+			tempX += 2f * Time.deltaTime;
 			if (tempX > 1)
 				tempX = 1;
 			tempX -= FireBallbar.transform.localScale.x;
